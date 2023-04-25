@@ -15,7 +15,12 @@ namespace RPNCalulator
                 ["+"] = (fst, snd) => (fst + snd),
                 ["-"] = (fst, snd) => (fst - snd),
                 ["*"] = (fst, snd) => (fst * snd),
-                ["/"] = (fst, snd) => (fst / snd)
+                ["/"] = (fst, snd) => (fst / snd),
+                //["!"] = (fst, snd) => (_factorial(fst))
+            };
+            _operationFunction = new Dictionary<string, Func<int>>
+            {
+                ["!"] = (fst) => (_factorial(fst))
             };
             _operators = new Stack<int>();
 
@@ -32,6 +37,12 @@ namespace RPNCalulator
                     _operators.Push(_operationFunction[op](num1, num2));
                     //_operators.Push(Operation(op)(num1, num2));
                 }
+                else if(Isfunction(op))
+                {
+                    var num1 = _operators.Pop();
+                    _operators.Push(_operationFunction[op](num1));
+                }
+
             }
 
             var result = _operators.Pop();
@@ -47,7 +58,8 @@ namespace RPNCalulator
         private bool IsOperator(String input) =>
             input.Equals("+") || input.Equals("-") ||
             input.Equals("*") || input.Equals("/");
-
+        private bool Isfunction(String input) =>
+            input.Equals("!");
         private Func<int, int, int> Operation(String input) =>
             (x, y) =>
             (
@@ -55,5 +67,22 @@ namespace RPNCalulator
                     (input.Equals("*") ? x * y : int.MinValue)
                 )
             );
+        private Func<int, int> Operation(String input) =>
+            (x) =>
+            (
+                input.Equals("!") ? x
+            > int.MinValue
+
+            );
+
+
+        private int _factorial(int input)
+        {
+            int result = 1;
+            for (int i = (input); i > 0; i--)
+                result *= i;
+
+            return result;
+        }
     }
 }
