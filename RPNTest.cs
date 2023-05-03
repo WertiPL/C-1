@@ -97,5 +97,12 @@ namespace RPNTest
 
                   Assert.That(result, Is.EqualTo(24));
               }
+        [Test]
+        public void BinaryFactrial()
+        {
+            var result = _sut.EvalRPN("100b !");
+
+            Assert.That(result, Is.EqualTo(24));
+        }
     }
 }

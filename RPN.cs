@@ -30,13 +30,22 @@ namespace RPNCalulator
             foreach (var op in splitInput)
             {
                 if (IsNumber(op))
-                    if (binary.isItbin(op))
+                { 
+                    if ()
                     {
-
+                        
                     }
-
-                        ;
-                    _operators.Push(Int32.Parse(op));
+                    else
+                    {
+                        _operators.Push(Int32.Parse(op));
+                    }
+                }
+                else if(binary.isItbin(op))
+                {
+                    _operators.Push(binary.BintoDec(op));
+                }
+                        
+                    
                 else
                 if (IsOperator1(op))
                 {
