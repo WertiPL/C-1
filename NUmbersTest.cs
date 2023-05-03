@@ -9,13 +9,18 @@ namespace NumTest
     public class NumTest
     {
         private Binary _sut;
-
+        private Hex _hex;
 
 
         [SetUp]
         public void Setup()
         {
             _sut = new Binary();
+        }
+        [SetUp]
+        public void SetupHex()
+        {
+            _hex = new Hex();
         }
         [Test]
         public void CheckIfTestWorks()
@@ -38,11 +43,27 @@ namespace NumTest
 
         }
         [Test]
+        public void CheckIsItHex()
+        {
+            var result = _hex.isItHex("#12345");
+
+            Assert.That(result, Is.EqualTo(true));
+
+        }
+        [Test]
         public void ChangeBintoDec()
         {
             var result = _sut.BintoDec("101b");
 
             Assert.That(result, Is.EqualTo(5));
+
+        }
+        [Test]
+        public void ChangeHextoDec()
+        {
+            var result = _hex.hextoDec("#10");
+
+            Assert.That(result, Is.EqualTo(16));
 
         }
         [Test]
@@ -53,5 +74,7 @@ namespace NumTest
             Assert.That(result, Is.EqualTo(4));
 
         }
+
+
     }
 }

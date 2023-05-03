@@ -33,13 +33,14 @@ namespace RPNCalulator.Numbers
                 var value = (int)Convert.ToInt32(bin.Substring(0, bin.Length - 1), 2);
                 return value;
             }
-          
-            catch(Exception)
+
+
+            catch (Exception)
             {
-                Console.WriteLine("Cannot divide by Zero");
+                Console.WriteLine("Something went Wrong");
                 return 0;
             }
-        
+
         }
 
     }

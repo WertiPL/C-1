@@ -10,6 +10,7 @@ namespace RPNCalulator
         Dictionary<string, Func<int, int, int>> _operationFunction2arg;
         Dictionary<string, Func<int, int>> _operationFunction1arg;
         Binary binary = new Binary();
+        Hex hex = new Hex();
 
         public int EvalRPN(string input)
         {
@@ -29,23 +30,19 @@ namespace RPNCalulator
             var splitInput = input.Split(' ');
             foreach (var op in splitInput)
             {
-                if (IsNumber(op))
-                { 
-                    if ()
-                    {
-                        
-                    }
-                    else
-                    {
-                        _operators.Push(Int32.Parse(op));
-                    }
+                if (IsDecNumber(op))
+                {
+                    _operators.Push(Int32.Parse(op));
                 }
                 else if(binary.isItbin(op))
                 {
                     _operators.Push(binary.BintoDec(op));
                 }
-                        
-                    
+                else if (hex.isItHex(op))
+                {
+                    _operators.Push(hex.hextoDec(op));
+                }
+
                 else
                 if (IsOperator1(op))
                 {
@@ -71,7 +68,7 @@ namespace RPNCalulator
             throw new InvalidOperationException();
         }
 
-        private bool IsNumber(String input) => Int32.TryParse(input, out _);
+        private bool IsDecNumber(String input) => Int32.TryParse(input, out _);
 
         private bool IsOperator2(String input) =>
             input.Equals("+") || input.Equals("-") ||
