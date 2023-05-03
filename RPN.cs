@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPNCalulator.Numbers;
+using System;
 using System.Collections.Generic;
 
 namespace RPNCalulator
@@ -6,19 +7,20 @@ namespace RPNCalulator
     public class RPN
     {
         private Stack<int> _operators;
-        Dictionary<string, Func<int, int, int>> _operationFunction;
+        Dictionary<string, Func<int, int, int>> _operationFunction2arg;
+        Dictionary<string, Func<int, int>> _operationFunction1arg;
+        Binary binary = new Binary();
 
         public int EvalRPN(string input)
         {
-            _operationFunction = new Dictionary<string, Func<int, int, int>>
+            _operationFunction2arg = new Dictionary<string, Func<int, int, int>>
             {
                 ["+"] = (fst, snd) => (fst + snd),
                 ["-"] = (fst, snd) => (fst - snd),
                 ["*"] = (fst, snd) => (fst * snd),
                 ["/"] = (fst, snd) => (fst / snd),
-                //["!"] = (fst, snd) => (_factorial(fst))
             };
-            _operationFunction = new Dictionary<string, Func<int>>
+            _operationFunction1arg = new Dictionary<string, Func<int,int>>
             {
                 ["!"] = (fst) => (_factorial(fst))
             };
@@ -28,20 +30,27 @@ namespace RPNCalulator
             foreach (var op in splitInput)
             {
                 if (IsNumber(op))
+                    if (binary.isItbin(op))
+                    {
+
+                    }
+
+                        ;
                     _operators.Push(Int32.Parse(op));
                 else
-                if (IsOperator(op))
+                if (IsOperator1(op))
+                {
+                    var num1 = _operators.Pop();
+                    _operators.Push(_operationFunction1arg[op](num1));
+                }
+                else
+                if (IsOperator2(op))
                 {
                     var num1 = _operators.Pop();
                     var num2 = _operators.Pop();
-                    _operators.Push(_operationFunction[op](num1, num2));
-                    //_operators.Push(Operation(op)(num1, num2));
+                    _operators.Push(_operationFunction2arg[op](num1, num2));
                 }
-                else if(Isfunction(op))
-                {
-                    var num1 = _operators.Pop();
-                    _operators.Push(_operationFunction[op](num1));
-                }
+
 
             }
 
@@ -55,27 +64,21 @@ namespace RPNCalulator
 
         private bool IsNumber(String input) => Int32.TryParse(input, out _);
 
-        private bool IsOperator(String input) =>
+        private bool IsOperator2(String input) =>
             input.Equals("+") || input.Equals("-") ||
             input.Equals("*") || input.Equals("/");
-        private bool Isfunction(String input) =>
+        private bool IsOperator1(String input) =>
             input.Equals("!");
-        private Func<int, int, int> Operation(String input) =>
+        private Func<int, int, int> Operation2(String input) =>
             (x, y) =>
             (
-                (input.Equals("+") ? x + y :
-                    (input.Equals("*") ? x * y : int.MinValue)
+                ((input.Equals("+") ? x + y :
+                    (input.Equals("*") ? x * y : int.MinValue))
                 )
             );
-        private Func<int, int> Operation(String input) =>
-            (x) =>
-            (
-                input.Equals("!") ? x
-            > int.MinValue
-
-            );
 
 
+        
         private int _factorial(int input)
         {
             int result = 1;

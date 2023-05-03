@@ -90,12 +90,12 @@ namespace RPNTest
 
             Assert.That(result, Is.EqualTo(2));
         }
-        [Test]
-        public void OperatorStrong_SubstractingTwoNumbers_ReturnCorrectResult()
-        {
-            var result = _sut.EvalRPN("4 !");
+             [Test]
+              public void OperatorStrong_SubstractingTwoNumbers_ReturnCorrectResult()
+              {
+                  var result = _sut.EvalRPN("4 !");
 
-            Assert.That(result, Is.EqualTo(6));
-        }
+                  Assert.That(result, Is.EqualTo(24));
+              }
     }
 }
