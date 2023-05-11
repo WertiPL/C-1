@@ -20,6 +20,7 @@ namespace RPNCalulator
                 ["-"] = (fst, snd) => (fst - snd),
                 ["*"] = (fst, snd) => (fst * snd),
                 ["/"] = (fst, snd) => (fst / snd),
+                ["%"] = (fst, snd) => (fst % snd),
             };
             _operationFunction1arg = new Dictionary<string, Func<int,int>>
             {
@@ -72,7 +73,7 @@ namespace RPNCalulator
 
         private bool IsOperator2(String input) =>
             input.Equals("+") || input.Equals("-") ||
-            input.Equals("*") || input.Equals("/");
+            input.Equals("*") || input.Equals("/") || input.Equals("%");
         private bool IsOperator1(String input) =>
             input.Equals("!");
         private Func<int, int, int> Operation2(String input) =>
