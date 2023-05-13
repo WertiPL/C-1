@@ -8,35 +8,34 @@ using System.Threading.Tasks;
 
 namespace RPNCalulator.Numbers
 {
-    internal class Hex : INumbersParser
+    internal class Dec : INumbersParser
     {
-        public bool isItHex(string hc)
+        public bool isItDec(string hc)
         {
-            return Regex.Match(hc, "^#[0-9a-fA-F]").Success;
+            return Regex.Match(hc, "[0-9]").Success;
         }
         public bool TryNum(string s, out int value)
         {
             try
             {
-                if (isItHex(s))
-                {
-
-                    string x = s.Substring(1, s.Length - 1);
-                    value = Convert.ToInt32(x, 16);
-                    return true;
-                }
-                else
+                if (!isItDec(s))
                 {
                     value = 0;
                     return false;
                 }
+                else
+                {
+                    value = Convert.ToInt32(s);
+                    return true;
+                }
             }
-
+               
             catch (Exception e)
             {
                 value = 0;
                 return false;
             }
+
         }
     }
 }

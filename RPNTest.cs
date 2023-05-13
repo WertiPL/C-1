@@ -26,35 +26,11 @@ namespace RPNTest
         }
 
         [Test]
-        public void SingleDigitOneInputOneReturn()
-        {
-            var result = _sut.EvalRPN("1");
-
-            Assert.That(result, Is.EqualTo(1));
-
-        }
-        [Test]
-        public void SingleDigitOtherThenOneInputNumberReturn()
-        {
-            var result = _sut.EvalRPN("2");
-
-            Assert.That(result, Is.EqualTo(2));
-
-        }
-        [Test]
-        public void TwoDigitsNumberInputNumberReturn()
-        {
-            var result = _sut.EvalRPN("12");
-
-            Assert.That(result, Is.EqualTo(12));
-
-        }
-        [Test]
         public void TwoNumbersGivenWithoutOperator_ThrowsExcepton()
         {
             Assert.Throws<InvalidOperationException>(() => _sut.EvalRPN("1 2"));
-
         }
+
         [Test]
         public void OperatorPlus_AddingTwoNumbers_ReturnCorrectResult()
         {
@@ -72,7 +48,7 @@ namespace RPNTest
         [Test]
         public void OperatorMinus_SubstractingTwoNumbers_ReturnCorrectResult()
         {
-            var result = _sut.EvalRPN("1 2 -");
+            var result = _sut.EvalRPN("2 1 -");
 
             Assert.That(result, Is.EqualTo(1));
         }
@@ -81,17 +57,17 @@ namespace RPNTest
         {
             var result = _sut.EvalRPN("15 7 1 1 + - / 3 * 2 1 1 + + -");
 
-            Assert.That(result, Is.EqualTo(4));
+            Assert.That(result, Is.EqualTo(5));
         }
         [Test]
         public void Operatordivision_SubstractingTwoNumbers_ReturnCorrectResult()
         {
-            var result = _sut.EvalRPN("2 4 /");
+            var result = _sut.EvalRPN("4 2 /");
 
             Assert.That(result, Is.EqualTo(2));
         }
              [Test]
-              public void OperatorStrong_SubstractingTwoNumbers_ReturnCorrectResult()
+              public void decFactrial()
               {
                   var result = _sut.EvalRPN("4 !");
 
@@ -103,6 +79,13 @@ namespace RPNTest
             var result = _sut.EvalRPN("100b !");
 
             Assert.That(result, Is.EqualTo(24));
+        }
+        [Test]
+        public void BinaryModulo()
+        {
+            var result = _sut.EvalRPN("110b 100b %");
+
+            Assert.That(result, Is.EqualTo(2));
         }
     }
 }

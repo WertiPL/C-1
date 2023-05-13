@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Testy.Operations
-{
-    internal class Class1
-    {
+namespace RPNCalulator.Abstractions;
 
-    }
+public interface INumbersParser
+{
+    public bool TryNum(String e, out int r);
 }
