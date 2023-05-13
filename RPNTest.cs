@@ -87,5 +87,14 @@ namespace RPNTest
 
             Assert.That(result, Is.EqualTo(2));
         }
+
+        [Test]
+        public void hexsMultiplybin()
+        {
+            var result = _sut.EvalRPN("110b #140 *");
+
+            Assert.That(result, Is.EqualTo(1920));
+
+        }
     }
 }
